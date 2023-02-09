@@ -1,6 +1,5 @@
 from math import log, sqrt
 from .memory import memory
-from .polynomial import polynomial
 
 class factorizer:
 	
@@ -287,7 +286,29 @@ class factorizer:
 		if (factorizer.check(n) == 1):
 			return 1
 		return self.lcm(*[(p ** (a - 1) * (p - 1)) for p, a in self.factors])
-			
+	
+	def digitSum(n, b = 10):
+		"""
+		
+		Calculate the sum of the digits of n
+		
+		Parameters
+		----------
+		n : int
+			A positive integer
+		b : int, default = 10
+			A positive integer representing the base for the digits used
+		
+		Return
+		------
+		The sum of the digits of n in base b
+		
+		"""
+		t = 0
+		m = floor(log(n) / log(2))
+		for i in range(1, m):
+			t += b ** (m - k) * (n % b ** (k + 1))
+		return (n + b * (b - 1) * t) // b ** (m + 2)
 	
 	def gcd(self, *args):
 		"""
