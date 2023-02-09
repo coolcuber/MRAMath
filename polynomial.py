@@ -43,10 +43,7 @@ class polynomial:
 			else:
 				raise ValueError("Not enough or incorrect keywords given")
 		elif (nArgs == 2):
-			self.checkConsts(args[0])
-			self.checkPowers(args[1])
-			if (len(self.constList) != len(self.powerList)):
-				raise ValueError("Amounts of constants and powers do not match")
+			self.setPoly(polynomial.fromLists(args[0], args[1]))
 		else:
 			raise ValueError(f"Unknown input: {args}")
 		self.nTerms = len(self.powerList)
@@ -358,6 +355,15 @@ class polynomial:
 
 	def copy(self):
 		p = polynomial(self.constList[:], self.powerList[:], var = self.var)
+		return p
+	
+	@staticmethod
+	def fromLists(consts, powers):
+		p = polynomial()
+		p.checkConsts(consts)
+		p.checkPowers(powers)
+		if (len(p.constList) != len(p.powerList)):
+			raise ValueError("Amounts of constants and powers do not match")
 		return p
 
 	@staticmethod
