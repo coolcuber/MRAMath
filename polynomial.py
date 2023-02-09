@@ -248,6 +248,13 @@ class polynomial:
 		for const, power in p:
 			s.append([-const, power])
 		return s
+	
+	"""
+	
+	Functions for internal use.  None of these are really meant to be used
+	outside of this class
+	
+	"""
 
 	def append(self, term):
 		const, power = term
@@ -300,9 +307,6 @@ class polynomial:
 			self.powerList = [powers]
 		else:
 			raise TypeError("powers must be either a list or an integer")
-
-	def __test(self):
-		print("Public")
 
 	def simplify(self):
 		# Construct final lists
