@@ -310,29 +310,6 @@ class factorizer:
 			t += b ** (m - i) * (n % b ** (i + 1))
 		return (n + (b - 1) * t) // b ** (m + 1)
 	
-	def digitSum2(self, n, b = 10):
-		"""
-		
-		Calculate the sum of the digits of n
-		
-		Parameters
-		----------
-		n : int
-			A positive integer
-		b : int, default = 10
-			A positive integer representing the base for the digits used
-		
-		Return
-		------
-		The sum of the digits of n in base b
-		
-		"""
-		t = 0
-		m = int(log(n) / log(b))
-		for i in range(0, m + 1):
-			t += b ** (m - i) * (n % b ** (i + 1))
-		return (n + b * (b - 1) * t) // b ** (m + 2)
-	
 	def gcd(self, *args):
 		"""
 		
