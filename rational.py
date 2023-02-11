@@ -15,7 +15,12 @@ class rational:
 		self.den = den
 		self.f = factorizer()
 		self.simplify()
-		
+	
+	"""
+	
+	Magic methods
+	
+	"""
 	def __add__(self, q):
 		try:
 			l = self.f.lcm(self.den, q.den)
@@ -42,6 +47,9 @@ class rational:
 			return a // b
 		return rational(a, b)
 	
+	def __neg__(self):
+		return rational(-self.num, self.den)
+	
 	def __pow__(self, q):
 		if (type(q) is float and q != 0):
 			if ((self.num ** q) ** (1 / q) != self.num):
@@ -60,6 +68,35 @@ class rational:
 			elif (q < 0):
 				return rational(self.den ** q, self.num ** q)		
 	
+	def __radd__(self, q):
+		return self + q
+	
+	def __rmul__(self, q):
+		return self * q
+	
+	def __rsub__(self, q):
+		try:
+			l = self.f.lcm(self.den, q.den)
+			a = -self.num * l // self.den + q.num * l // q.den
+			if (a % l == 0):
+				return a // l
+			return rational(-self.num * l // self.den + q.num * l // q.den, l)
+		except AttributeError:	
+			a = -self.num + q * self.den
+			if (a % self.den == 0):
+				return a // self.den
+			return rational(a, q.den)
+	
+	def __rtruediv__(self, q):
+		try:
+			a = self.den * q.num
+			b = self.num * q.den
+			if (a % b == 0):
+				return a // b
+			return rational(a, b)
+		except AttributeError:
+			return rational(self.num, self.den * q)
+	
 	def __str__(self):
 		return f"{self.num}/{self.den}"
 	
@@ -77,17 +114,20 @@ class rational:
 			return rational(a, q.den)
 	
 	def __truediv__(self, q):
-		a = self.num * q.den
-		b = self.den * q.num
-		if (a % b == 0):
-			return a // b
-		return rational(self.num * q.den, self.den * q.num)
+		try:
+			a = self.num * q.den
+			b = self.den * q.num
+			if (a % b == 0):
+				return a // b
+			return rational(a, b)
+		except AttributeError:
+			return rational(self.num, self.den * q)
 	
-	def fixInts(self):
-		if (self.num == int(self.num)):
-			self.num = int(self.num)
-		if (self.den == int(self.den)):
-			self.den = int(self.den)
+	"""
+	
+	Internal methods
+	
+	"""
 	
 	def inv(self):
 		return rational(self.den, self.num)
@@ -96,5 +136,4 @@ class rational:
 		d = self.f.gcd(self.num, self.den)
 		self.num = self.num // d
 		self.den = self.den // d
-		self.fixInts()
 		return self
