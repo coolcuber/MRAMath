@@ -2,9 +2,18 @@ from .factorizer import factorizer
 
 class rational:
 	def __init__(self, num, den):
+		"""
 		
-		# checkForErrors(tests, messages)
+		Create a new rational object
 		
+		Parameters
+		----------
+		num : int
+			An integer to use as the numerator
+		den : int
+			An integer to use as the denominator
+		
+		"""
 		if (type(num) is not int):
 			raise TypeError("Numerator must be an integer")
 		elif (type(den) is not int):
